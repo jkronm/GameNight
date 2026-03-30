@@ -1,40 +1,28 @@
-# Import required modules
 import sys
 
+from utils.player import Player
+from utils.games_handler import Games_Handler
+
 def main():
-    # Display welcome message and available games
-    print("Welcome to Card Game App!")
+
+    # Player build
+    print(type(Player))
+    print("Thank you for playing Game Night!")
+    print("What is your player name?")
+    player_name = input(">>")
+    print(f"Hello {player_name}, how much money would you like to play with?")
+    money_seed = int(input(">>"))
+    player = Player(player_name=player_name, money=money_seed)
+
+    # Select Game:
+    print(f"Welcome {player}!  Which game would you like to play")
     print("Available Games:")
-    print("1. Blackjack")
-    print("2. Poker")
-    print("3. Solitaire")
+    game = Games_Handler(player)
+    game_selected = game.select_game() #could probably refactor to handle all game stuff internally to Games class
+    print(f"Okay, let us play{game_selected}!")
+    game.play_selected_game(game_selected)
 
-    # Get user input for game selection
-    while True:
-        choice = input("Enter the number of your chosen game: ")
-        if choice in ["1", "2", "3"]:
-            break
-        else:
-            print("Invalid choice. Please try again.")
-
-    # Call corresponding game function based on user's choice
-    games = {
-        "1": blackjack,
-        "2": poker,
-        "3": solitaire
-    }
-
-    chosen_game = games[choice]
-    chosen_game()
-
-def blackjack():
-    pass  # TO DO: implement Blackjack game logic
-
-def poker():
-    pass  # TO DO: implement Poker game logic
-
-def solitaire():
-    pass  # TO DO: implement Solitaire game logic
+    # use game_selected to start game
 
 if __name__ == "__main__":
     main()
